@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ import SortFilterProxyModel 0.2
 
 Item {
 id: root
-    
+
     readonly property alias games: gamesFiltered
     property var collection: api.collections.get(currentCollectionIndex)
     function currentGame(index) { return collection.games.get(gamesFiltered.mapToSource(index)) }

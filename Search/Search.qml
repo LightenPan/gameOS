@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ id: root
                 enabled: years.length
                 expression: releaseYear == 0 || (years[0] <= releaseYear && releaseYear <= years[1])
             },
-            IndexFilter { 
+            IndexFilter {
                 enabled: maxResults != 0
                 maximumIndex: maxResults - 1
             }/*,

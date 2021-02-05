@@ -72,7 +72,7 @@ id: root
         if (currentIndex == -1) {
             gamegrid.currentIndex = 0;
         }
-        else {
+        else { 
             // NOTE: We should be using the scroll proxy here, but this is significantly faster.
             if (sortedGames == null) {
                 sortedGames = list.collection.games.toVarArray().map(g => g.title.toLowerCase()).sort((a, b) => a.localeCompare(b));
@@ -264,7 +264,7 @@ id: root
 
                     width:      GridView.view.cellWidth
                     height:     GridView.view.cellHeight - titleMargin
-                    
+
                     onActivate: {
                         if (selected)
                             gameActivated();
@@ -296,7 +296,7 @@ id: root
 
                     width:      GridView.view.cellWidth
                     height:     GridView.view.cellHeight - titleMargin
-                    
+
                     onActivated: {
                         if (selected)
                             gameActivated();

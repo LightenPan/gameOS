@@ -374,7 +374,7 @@ function shuffle(model){
       model.set(currentIndex, model.get(randomIndex))
       model.set(randomIndex, temporaryValue);
   }
-  
+
   return model;
 }
 

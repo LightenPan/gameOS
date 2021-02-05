@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ import "../Global"
 import "../GridView"
 import "../Lists"
 import "../utils.js" as Utils
+import "../netApi.js" as NetApi
 
 FocusScope {
 id: root
@@ -45,7 +46,7 @@ id: root
             return ""
         }
     }
-    
+
     ListPublisher { id: publisherCollection; publisher: game && game.publisher ? game.publisher : ""; max: 10 }
     ListGenre { id: genreCollection; genre: game ? game.genreList[0] : ""; max: 10 }
 
@@ -108,7 +109,7 @@ id: root
 
     GridSpacer {
     id: fakebox
-        
+
         width: vpx(100); height: vpx(100)
     }
 
@@ -244,7 +245,7 @@ id: root
     Image {
     id: logo
 
-        anchors { 
+        anchors {
             top: parent.top; //topMargin: vpx(70)
             left: parent.left; leftMargin: vpx(70)
         }
@@ -277,16 +278,16 @@ id: root
     // Platform title
     Text {
     id: gametitle
-        
+
         text: game.title
-        
+
         anchors {
             top:    logo.top;
             left:   logo.left;//    leftMargin: globalMargin
             right:  parent.right;
             bottom: logo.bottom
         }
-        
+
         color: theme.text
         font.family: titleFont.name
         font.pixelSize: vpx(80)
@@ -326,17 +327,17 @@ id: root
         }
     }
 
-    
+
 
     // Details screen
     Item {
     id: detailsScreen
-        
+
         anchors.fill: parent
         visible: opacity !== 0
         opacity: (content.currentIndex !== 0) ? 0 : detailsOpacity
         Behavior on opacity { NumberAnimation { duration: 200 } }
-        
+
         Rectangle {
             anchors.fill: parent
             color: theme.main
@@ -344,9 +345,9 @@ id: root
         }
 
         Item {
-        id: details 
+        id: details
 
-            anchors { 
+            anchors {
                 top: parent.top; topMargin: vpx(100)
                 left: parent.left; leftMargin: vpx(70)
                 right: parent.right; rightMargin: vpx(70)
@@ -380,7 +381,7 @@ id: root
     id: header
 
         anchors {
-            left: parent.left; 
+            left: parent.left;
             right: parent.right
         }
         height: vpx(75)
@@ -408,14 +409,14 @@ id: root
             sourceSize: Qt.size(width, height)
             smooth: true
             visible: false
-            asynchronous: true           
+            asynchronous: true
         }
 
         OpacityMask {
             anchors.fill: logobg
             source: logobg
             maskSource: platformlogo
-            
+
             // Mouse/touch functionality
             MouseArea {
                 anchors.fill: parent
@@ -427,16 +428,16 @@ id: root
         // Platform title
         Text {
         id: softwareplatformtitle
-            
+
             text: game.collections.get(0).name
-            
+
             anchors {
                 top:    parent.top;
                 left:   parent.left;    leftMargin: globalMargin
                 right:  parent.right
                 bottom: parent.bottom
             }
-            
+
             color: theme.text
             font.family: titleFont.name
             font.pixelSize: vpx(30)
@@ -461,14 +462,14 @@ id: root
     ObjectModel {
     id: menuModel
 
-        Button { 
-        id: button1 
+        Button {
+        id: button1
 
             text: "Play game"
             height: parent.height
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
-            onActivated: 
+            onActivated:
                 if (selected) {
                     sfxAccept.play();
                     launchGame(game);
@@ -478,14 +479,33 @@ id: root
                 }
         }
 
-        Button { 
-        id: button2 
+        Button {
+        id: buttonScrapy
+
+            text: "刮削游戏"
+            height: parent.height
+            selected: ListView.isCurrentItem && menu.focus
+            onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
+            onActivated:
+                if (selected) {
+                    console.log('log game info. ', game);
+                    NetApi.scrapyGameInfo(null, game.name, null, (info) => {
+                        console.log('log scrapy info. ', info);
+                    })
+                } else {
+                    sfxNav.play();
+                    menu.currentIndex = ObjectModel.index;
+                }
+        }
+
+        Button {
+        id: button2
 
             icon: "../assets/images/icon_details.svg"
             height: parent.height
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
-            onActivated: 
+            onActivated:
                 if (selected) {
                     sfxToggle.play();
                     showDetails();
@@ -495,8 +515,8 @@ id: root
                 }
         }
 
-        Button { 
-        id: button3 
+        Button {
+        id: button3
 
             property string buttonText: game && game.favorite ? "Unfavorite" : "Add favorite"
             //text: buttonText
@@ -504,7 +524,7 @@ id: root
             height: parent.height
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
-            onActivated: 
+            onActivated:
                 if (selected) {
                     sfxToggle.play();
                     game.favorite = !game.favorite;
@@ -513,8 +533,8 @@ id: root
                     menu.currentIndex = ObjectModel.index;
                 }
         }
-        
-        Button { 
+
+        Button {
         id: button4
 
             //text: "Back"
@@ -522,11 +542,11 @@ id: root
             height: parent.height
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
-            onActivated: 
-                if (selected) 
+            onActivated:
+                if (selected)
                     previousScreen();
                 else {
-                    sfxNav.play(); 
+                    sfxNav.play();
                     menu.currentIndex = ObjectModel.index;
                 }
         }
@@ -568,7 +588,7 @@ id: root
                 mediaItem: modelData
 
                 onHighlighted: {
-                    sfxNav.play(); 
+                    sfxNav.play();
                     media.currentIndex = index;
                     content.currentIndex = media.ObjectModel.index;
                 }
@@ -578,13 +598,13 @@ id: root
                     showMedia(index);
                 else
                 {
-                    sfxNav.play(); 
+                    sfxNav.play();
                     media.currentIndex = index;
                     content.currentIndex = media.ObjectModel.index;
                 }
             }
             }
-            
+
         }
 
         // More by publisher
@@ -618,7 +638,7 @@ id: root
             search: genreCollection
             onListHighlighted: { sfxNav.play(); content.currentIndex = list2.ObjectModel.index; }
         }
-        
+
     }
 
     ListView {
@@ -634,14 +654,14 @@ id: root
         focus: true
         spacing: vpx(30)
         header: Item { height: vpx(450) }
-        
+
         snapMode: ListView.SnapToItem
         highlightMoveDuration: 100
         displayMarginEnd: 150
         cacheBuffer: 250
-        onCurrentIndexChanged: { 
+        onCurrentIndexChanged: {
             if (content.currentIndex === 0) {
-                toggleVideo(true); 
+                toggleVideo(true);
             } else {
                 toggleVideo(false);
             }
@@ -653,7 +673,7 @@ id: root
 
     MediaView {
     id: mediaScreen
-        
+
         anchors.fill: parent
         Behavior on opacity { NumberAnimation { duration: 100 } }
         visible: opacity != 0
@@ -698,12 +718,12 @@ id: root
             button: "accept"
         }
     }
-    
-    onFocusChanged: { 
-        if (focus) { 
+
+    onFocusChanged: {
+        if (focus) {
             currentHelpbarModel = gameviewHelpModel;
             menu.focus = true;
-            menu.currentIndex = 0; 
+            menu.currentIndex = 0;
         } else {
             screenshot.opacity = 1;
             toggleVideo(false);

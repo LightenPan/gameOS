@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ id: root
     }
     function boxArt(data) {
         if (data != null) {
-            if (data.assets.boxFront.includes("/header.jpg")) 
+            if (data.assets.boxFront.includes("/header.jpg"))
             return steamBoxArt(data);
             else {
             if (data.assets.boxFront != "")
@@ -61,14 +61,14 @@ id: root
     signal activate()
     signal highlighted()
 
-    Item 
+    Item
     {
     id: container
 
         anchors.fill: parent
         anchors.margins: vpx(6)
         Behavior on opacity { NumberAnimation { duration: 200 } }
-                       
+
         Image {
         id: screenshot
             anchors.fill: parent
@@ -84,9 +84,9 @@ id: root
             Rectangle {
             id: favicon
 
-                anchors { 
-                    right: parent.right; rightMargin: vpx(7); 
-                    top: parent.top; topMargin: vpx(7) 
+                anchors {
+                    right: parent.right; rightMargin: vpx(7);
+                    top: parent.top; topMargin: vpx(7)
                 }
                 width: vpx(20)
                 height: width
@@ -97,7 +97,7 @@ id: root
                     source: "../assets/images/favicon.svg"
                     asynchronous: true
                     anchors.fill: parent
-                    anchors.margins: vpx(4)            
+                    anchors.margins: vpx(4)
                 }
             }
         }
@@ -115,7 +115,7 @@ id: root
 
         Rectangle {
         id: overlay
-        
+
             width: screenshot.paintedWidth
             height: screenshot.paintedHeight
             anchors.centerIn: screenshot
@@ -124,7 +124,7 @@ id: root
             visible: false
         }
 
-        
+
     }
 
     Loader {
@@ -195,7 +195,7 @@ id: root
 
     Component {
     id: loaderspinner
-    
+
         Image {
             source: "../assets/images/loading.png"
             width: vpx(50)
@@ -216,7 +216,7 @@ id: root
         // Accept
         if (api.keys.isAccept(event) && !event.isAutoRepeat) {
             event.accepted = true;
-            activate();        
+            activate();
         }
     }
 
@@ -230,7 +230,7 @@ id: root
             activate();
         }
     }
-    
+
     /*// Mouse/touch functionality
     MouseArea {
         anchors.fill: parent

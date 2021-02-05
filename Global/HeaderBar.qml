@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -59,7 +59,7 @@ id: root
             sourceSize: Qt.size(parent.width, parent.height)
             smooth: true
             visible: false
-            asynchronous: true           
+            asynchronous: true
         }
 
         OpacityMask {
@@ -77,16 +77,16 @@ id: root
         // Platform title
         Text {
         id: softwareplatformtitle
-            
+
             text: currentCollection.name
-            
+
             anchors {
                 top:    parent.top;
                 left:   parent.left;    leftMargin: globalMargin
                 right:  parent.right
                 bottom: parent.bottom
             }
-            
+
             color: theme.text
             font.family: titleFont.name
             font.pixelSize: vpx(30)
@@ -110,7 +110,7 @@ id: root
             // Search bar
             Item {
             id: searchbar
-                
+
                 property bool selected: ListView.isCurrentItem && root.focus
                 onSelectedChanged: if (!selected && searchActive) toggleSearch();
 
@@ -120,7 +120,7 @@ id: root
                 Behavior on width {
                     PropertyAnimation { duration: 200; easing.type: Easing.OutQuart; easing.amplitude: 2.0; easing.period: 1.5 }
                 }
-                
+
                 Rectangle {
                     width: parent.width
                     height: parent.height
@@ -135,7 +135,7 @@ id: root
 
                     width: height
                     height: vpx(18)
-                    anchors { 
+                    anchors {
                         left: parent.left; leftMargin: vpx(11)
                         top: parent.top; topMargin: vpx(10)
                     }
@@ -146,8 +146,8 @@ id: root
 
                 TextInput {
                 id: searchInput
-                    
-                    anchors { 
+
+                    anchors {
                         left: searchicon.right; leftMargin: vpx(10)
                         top: parent.top; bottom: parent.bottom
                         right: parent.right; rightMargin: vpx(15)
@@ -203,7 +203,7 @@ id: root
                 height: searchbar.height
 
                 Rectangle
-                { 
+                {
                     anchors.fill: parent
                     radius: height/2
                     color: theme.accent
@@ -212,9 +212,9 @@ id: root
 
                 Text {
                 id: directiontitle
-                    
+
                     text: (orderBy === Qt.AscendingOrder) ? "Ascending" : "Descending"
-                                    
+
                     color: theme.text
                     font.family: subtitleFont.name
                     font.pixelSize: vpx(18)
@@ -240,7 +240,7 @@ id: root
                 height: searchbar.height
 
                 Rectangle
-                { 
+                {
                     anchors.fill: parent
                     radius: height/2
                     color: theme.accent
@@ -249,9 +249,9 @@ id: root
 
                 Text {
                 id: ordertitle
-                    
+
                     text: "By " + sortByFilter[sortByIndex]
-                                    
+
                     color: theme.text
                     font.family: subtitleFont.name
                     font.pixelSize: vpx(18)
@@ -267,7 +267,7 @@ id: root
                     }
                 }
             }
-            
+
             // Filters menu
             Item {
             id: filterbutton
@@ -277,19 +277,19 @@ id: root
                 height: searchbar.height
 
                 Rectangle
-                { 
+                {
                     anchors.fill: parent
                     radius: height/2
                     color: theme.accent
                     visible: filterbutton.selected
                 }
-                
+
                 // Filter title
                 Text {
                 id: filtertitle
-                    
+
                     text: (showFavs) ? "Favorites" : "All games"
-                                    
+
                     color: theme.text
                     font.family: subtitleFont.name
                     font.pixelSize: vpx(18)
@@ -320,9 +320,9 @@ id: root
                 right: parent.right; rightMargin: globalMargin
                 left: parent.left; top: parent.top; topMargin: vpx(15)
             }
-            
+
         }
-        
+
     }
 
 }

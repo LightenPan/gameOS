@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ id: root
                 collection.itemWidth = (width / 4.0);
                 collection.itemHeight = collection.itemWidth * settings.WideRatio;
                 break;
-            
+
         }
 
         collection.height = collection.itemHeight + vpx(40) + globalMargin
@@ -117,7 +117,7 @@ id: root
     }
 
     Component.onDestruction: storeIndices();
-    
+
     anchors.fill: parent
 
     Item {
@@ -192,7 +192,7 @@ id: root
 
         Text {
             text: "Try adding some favorite games"
-            
+
             horizontalAlignment: Text.AlignHCenter
             anchors { bottom: parent.bottom; bottomMargin: vpx(75) }
             width: parent.width
@@ -248,7 +248,7 @@ id: root
                 // Accept
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
-                    settingsScreen();            
+                    settingsScreen();
                 }
                 // Back
                 if (api.keys.isCancel(event) && !event.isAutoRepeat) {
@@ -302,7 +302,7 @@ id: root
             keyNavigationWraps: true
             currentIndex: (storedHomePrimaryIndex == 0) ? storedHomeSecondaryIndex : 0
             Component.onCompleted: positionViewAtIndex(currentIndex, ListView.Visible)
-            
+
             model: !ftue ? featuredCollection.games : 0
             delegate: featuredDelegate
 
@@ -319,14 +319,14 @@ id: root
                     //sourceSize { width: featuredlist.width; height: featuredlist.height }
                     fillMode: Image.PreserveAspectCrop
                     asynchronous: true
-                        
+
                     onSelectedChanged: {
                         if (selected)
                             logoAnim.start()
                     }
 
                     Rectangle {
-                        
+
                         anchors.fill: parent
                         color: "black"
                         opacity: featuredlist.focus ? 0 : 0.5
@@ -346,11 +346,11 @@ id: root
                         anchors.verticalCenter: parent.verticalCenter
                         opacity: featuredlist.focus ? 1 : 0.5
 
-                        PropertyAnimation { 
-                        id: logoAnim; 
-                            target: specialLogo; 
-                            properties: "y"; 
-                            from: specialLogo.y-vpx(50); 
+                        PropertyAnimation {
+                        id: logoAnim;
+                            target: specialLogo;
+                            properties: "y";
+                            from: specialLogo.y-vpx(50);
                             duration: 100
                         }
                     }
@@ -362,14 +362,14 @@ id: root
                         onEntered: { sfxNav.play(); mainList.currentIndex = 0; }
                         onClicked: {
                             if (selected)
-                                gameDetails(modelData);  
+                                gameDetails(modelData);
                             else
                                 mainList.currentIndex = 0;
                         }
                     }
                 }
             }
-            
+
             Row {
             id: blips
 
@@ -398,11 +398,11 @@ id: root
                     event.accepted = true;
                     storedHomeSecondaryIndex = featuredlist.currentIndex;
                     if (!ftue)
-                        gameDetails(featuredCollection.currentGame(currentIndex));            
+                        gameDetails(featuredCollection.currentGame(currentIndex));
                 }
             }
         }
-        
+
         // Collections list
         ListView {
         id: platformlist
@@ -424,7 +424,7 @@ id: root
             snapMode: ListView.SnapOneItem
             highlightMoveDuration: 100
             keyNavigationWraps: true
-            
+
             property int savedIndex: currentCollectionIndex
             onFocusChanged: {
                 if (focus)
@@ -486,7 +486,7 @@ id: root
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                
+
                 // Mouse/touch functionality
                 MouseArea {
                     anchors.fill: parent
@@ -502,7 +502,7 @@ id: root
                             mainList.currentIndex = platformlist.ObjectModel.index;
                             platformlist.currentIndex = index;
                         }
-                        
+
                     }
                 }
             }
@@ -515,7 +515,7 @@ id: root
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
                     currentCollectionIndex = platformlist.currentIndex;
-                    softwareScreen();            
+                    softwareScreen();
                 }
             }
 
@@ -660,7 +660,7 @@ id: root
             onActivate: { if (!selected) { mainList.currentIndex = currentList.ObjectModel.index; } }
             onListHighlighted: { sfxNav.play(); mainList.currentIndex = currentList.ObjectModel.index; }
         }
-        
+
     }
 
     ListView {
@@ -670,13 +670,13 @@ id: root
         model: mainModel
         focus: true
         highlightMoveDuration: 200
-        highlightRangeMode: ListView.ApplyRange 
+        highlightRangeMode: ListView.ApplyRange
         preferredHighlightBegin: header.height
         preferredHighlightEnd: parent.height - (helpMargin * 2)
         snapMode: ListView.SnapOneItem
         keyNavigationWraps: true
         currentIndex: storedHomePrimaryIndex
-        
+
         cacheBuffer: 1000
         footer: Item { height: helpMargin }
 
@@ -717,7 +717,7 @@ id: root
         }
     }
 
-    onFocusChanged: { 
+    onFocusChanged: {
         if (focus)
             currentHelpbarModel = gridviewHelpModel;
     }

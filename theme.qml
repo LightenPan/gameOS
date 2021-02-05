@@ -1,5 +1,5 @@
 // gameOS theme
-// Copyright (C) 2018-2020 Seth Powell 
+// Copyright (C) 2018-2020 Seth Powell
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@ import QtQuick 2.0
 import QtQuick.Layouts 1.11
 import SortFilterProxyModel 0.2
 import QtMultimedia 5.9
+import QtNetwork 1.0
 import "VerticalList"
 import "GridView"
 import "Global"
@@ -67,14 +68,13 @@ id: root
             ShowcaseCollection5_Thumbnail: api.memory.has("Collection 5 - Thumbnail") ? api.memory.get("Collection 5 - Thumbnail") : "Wide",
             WideRatio:                     api.memory.has("Wide - Ratio") ? api.memory.get("Wide - Ratio") : "0.64",
             TallRatio:                     api.memory.has("Tall - Ratio") ? api.memory.get("Tall - Ratio") : "0.66"
-            
         }
     }
 
     // Collections
     property int currentCollectionIndex: 0
     property int currentGameIndex: 0
-    property var currentCollection: api.collections.get(currentCollectionIndex)    
+    property var currentCollection: api.collections.get(currentCollectionIndex)
     property var currentGame
 
     // Stored variables for page navigation
@@ -290,7 +290,7 @@ id: root
     }
 
     // Set default state to the platform screen
-    Component.onCompleted: { 
+    Component.onCompleted: {
         root.state = "showcasescreen";
 
         if (fromGame)
@@ -300,7 +300,7 @@ id: root
     // Background
     Rectangle {
     id: background
-        
+
         anchors.fill: parent
         color: theme.main
     }
@@ -424,7 +424,7 @@ id: root
         SettingsScreen { focus: true }
     }
 
-    
+
     // Button help
     property var currentHelpbarModel
     ButtonHelpBar {
@@ -462,6 +462,6 @@ id: root
         id: sfxToggle
         source: "assets/sfx/toggle.wav"
     }
-    
+
 }
 
